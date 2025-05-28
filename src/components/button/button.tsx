@@ -5,16 +5,15 @@ import styles from './button.module.css';
 
 export type ButtonProps = ComponentProps<'button'> & {
   variant?: 'primary' | 'secondary' | 'destructive';
+  size?: 'small' | 'medium' | 'large';
 };
 
-export const Button = ({ variant = 'primary', ...props }: ButtonProps) => {
-  return (
-    <button
-      className={clsx(styles.button, {
-        [styles.secondary]: variant === 'secondary',
-        [styles.destructive]: variant === 'destructive',
-      })}
-      {...props}
-    />
-  );
+export const Button = ({
+  variant = 'primary',
+  size = 'medium',
+  className,
+  ...props
+}: ButtonProps) => {
+  const classes = clsx(styles.button, styles[variant], styles[size], className);
+  return <button {...props} className={classes} />;
 };
